@@ -30,6 +30,11 @@ const Upload = ({ onComplete }: UploadProps) => {
             setProgress(0);
 
             const reader = new FileReader();
+            reader.onerror = () => {
+                console.error('File reading failed');
+                setFile(null);
+                setProgress(0);
+            };
             reader.onload = () => {
                 const base64 = typeof reader.result === 'string' ? reader.result : '';
                 progressIntervalRef.current = setInterval(() => {
